@@ -10,12 +10,8 @@ export default function EvaluationForm() {
   const [selectedGroupWorkDescription, setSelectedGroupWorkDescription] =
     useState("");
 
-  console.log(gender);
-
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    const name = event.currentTarget.name.value;
 
     setName("");
     setGroupWorkRating("");
