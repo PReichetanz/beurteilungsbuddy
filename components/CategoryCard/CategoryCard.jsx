@@ -1,20 +1,15 @@
 import styled from "styled-components";
+import { useState } from "react";
 import Rating from "../Rating/Rating";
 import { replaceName } from "../utils/helper";
 
-export default function CategoryCard({
-  category,
-  name,
-  gender,
-  rating,
-  onChangeRating,
-  selectedDescription,
-  onChangeDescription,
-}) {
+export default function CategoryCard({ category, name, gender }) {
+  const [rating, setRating] = useState("");
+  const [selectedDescription, setSelectedDescription] = useState("");
   return (
     <fieldset>
       <legend>{category.name}</legend>
-      <Rating selectedrating={rating} onRatingClick={onChangeRating} />
+      <Rating selectedrating={rating} onRatingClick={setRating} />
 
       {category.valuations.map((valuation, key) =>
         valuation.mark === rating
@@ -23,7 +18,7 @@ export default function CategoryCard({
                 key={`${description}-${key}`}
                 type="button"
                 onClick={() =>
-                  onChangeDescription(replaceName(description, name, gender))
+                  setSelectedDescription(replaceName(description, name, gender))
                 }
                 isActive={
                   selectedDescription === replaceName(description, name, gender)

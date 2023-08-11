@@ -6,16 +6,12 @@ import CategoryCard from "./CategoryCard/CategoryCard";
 export default function EvaluationForm() {
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
-  const [groupWorkRating, setGroupWorkRating] = useState("");
-  const [selectedGroupWorkDescription, setSelectedGroupWorkDescription] =
-    useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     setName("");
-    setGroupWorkRating("");
-    setSelectedGroupWorkDescription("");
+    setGender("");
   };
 
   return (
@@ -52,10 +48,6 @@ export default function EvaluationForm() {
           category={category}
           name={name}
           gender={gender}
-          rating={groupWorkRating}
-          onChangeRating={setGroupWorkRating}
-          selectedDescription={selectedGroupWorkDescription}
-          onChangeDescription={setSelectedGroupWorkDescription}
         />
       ))}
       <button type="submit">Submit</button>
