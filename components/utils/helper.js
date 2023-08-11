@@ -4,11 +4,11 @@ export function replaceName(description, name, gender) {
     return replacedDescription;
   } else {
     const femaleReplacedDescription = replacedDescription
-      .replaceAll(" er", " sie")
-      .replaceAll(" seiner", " ihrer")
-      .replaceAll(" ihm", " ihr")
-      .replaceAll(" ihn", " sie")
-      .replaceAll(" seinen", " ihren");
+      .replaceAll(/\ber\b/g, "sie")
+      .replaceAll(/\bseiner\b/g, "ihrer")
+      .replaceAll(/\bihm\b/g, "ihr")
+      .replaceAll(/\bihn\b/g, "sie")
+      .replaceAll(/\bseinen\b/g, "ihren");
     return femaleReplacedDescription;
   }
 }
