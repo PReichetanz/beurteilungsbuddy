@@ -12,3 +12,24 @@ export function replaceName(description, name, gender) {
     return femaleReplacedDescription;
   }
 }
+
+export function getTextToCopy(name, selectedEvaluations) {
+  let textToCopy = "";
+
+  const filteredSelectedEvaluations = selectedEvaluations.filter(
+    (evaluation) => evaluation.selectedDescription !== null
+  );
+
+  if (name && filteredSelectedEvaluations.length > 0) {
+    const descriptions = filteredSelectedEvaluations.map(
+      (evaluation) => evaluation.selectedDescription
+    );
+    const allEvaluations = descriptions.join("\n");
+
+    textToCopy = `Beurteilung von ${name}\n
+    ${allEvaluations}`;
+    return textToCopy;
+  } else {
+    return textToCopy;
+  }
+}

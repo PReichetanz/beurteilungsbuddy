@@ -29,7 +29,7 @@ export default createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     max-width: 600px;
-    margin: auto;
+    margin: 0 auto 1rem;
     background: var(--color-background-light)
   }
 `;

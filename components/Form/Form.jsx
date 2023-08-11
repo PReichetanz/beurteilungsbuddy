@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { useImmer } from "use-immer";
 import defaultCategories from "../utils/defaultCategories";
 import CategoryCard from "../CategoryCard/CategoryCard";
+import Button from "../Button/Button";
+import CopyButton from "../CopyButton/CopyButton";
+import { getTextToCopy } from "../utils/helper";
 
 const initialCategories = defaultCategories.map((category) => ({
   name: category.name,
@@ -89,7 +92,7 @@ export default function EvaluationForm() {
             handleEvaluationClick={handleEvaluationChange}
           />
         ))}
-        <SubmitButton type="submit">Zusammenfassen</SubmitButton>
+        <Button type="submit">Zusammenfassen</Button>
       </Form>
 
       {isSummaryChosen && (
@@ -98,15 +101,23 @@ export default function EvaluationForm() {
           {selectedEvaluations.map((evaluation) => (
             <p key={`${evaluation.name}`}>{evaluation.selectedDescription}</p>
           ))}
-          <button type="button" onClick={handleReset}>
-            Zurücksetzen
-          </button>
-          <button type="button">Kopieren</button>
+          <ButtonSection>
+            <ResetButton type="button" onClick={handleReset}>
+              Zurücksetzen
+            </ResetButton>
+            <CopyButton copyText={getTextToCopy(name, selectedEvaluations)} />
+          </ButtonSection>
         </section>
       )}
     </>
   );
 }
+
+const ButtonSection = styled.section`
+  display: flex;
+  justify-content: space-around;
+  padding-inline: 1rem;
+`;
 
 const Form = styled.form`
   background: var(--color-background-light);
@@ -125,15 +136,6 @@ const GeneralInfoContainer = styled.fieldset`
   font-weight: 700;
 `;
 
-const SubmitButton = styled.button`
-  background: var(--color-button);
-  border-radius: 0.5rem;
-  border: 1px solid var(--color-stroke);
-  font-weight: 700;
-  padding: 0.5rem;
-  width: 90%;
-  margin: auto;
-  &:hover {
-    background: var(--color-button-hover);
-  }
+const ResetButton = styled(Button)`
+  max-width: 30%;
 `;
