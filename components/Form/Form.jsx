@@ -4,8 +4,7 @@ import { useImmer } from "use-immer";
 import defaultCategories from "../utils/defaultCategories";
 import CategoryCard from "../CategoryCard/CategoryCard";
 import Button from "../Button/Button";
-import CopyButton from "../CopyButton/CopyButton";
-import { getTextToCopy } from "../utils/helper";
+import Summary from "../Summary";
 
 const initialCategories = defaultCategories.map((category) => ({
   name: category.name,
@@ -96,28 +95,14 @@ export default function EvaluationForm() {
       </Form>
 
       {isSummaryChosen && (
-        <section>
-          <h2>Zusammenfassung</h2>
-          {selectedEvaluations.map((evaluation) => (
-            <p key={`${evaluation.name}`}>{evaluation.selectedDescription}</p>
-          ))}
-          <ButtonSection>
-            <ResetButton type="button" onClick={handleReset}>
-              Zurücksetzen
-            </ResetButton>
-            <CopyButton copyText={getTextToCopy(name, selectedEvaluations)} />
-          </ButtonSection>
-        </section>
+        <Summary
+          selectedEvaluations={selectedEvaluations}
+          onReset={handleReset}
+        />
       )}
     </>
   );
 }
-
-const ButtonSection = styled.section`
-  display: flex;
-  justify-content: space-around;
-  padding-inline: 1rem;
-`;
 
 const Form = styled.form`
   background: var(--color-background-light);
@@ -134,8 +119,4 @@ const GeneralInfoContainer = styled.fieldset`
   display: flex;
   justify-content: space-between;
   font-weight: 700;
-`;
-
-const ResetButton = styled(Button)`
-  max-width: 30%;
 `;
