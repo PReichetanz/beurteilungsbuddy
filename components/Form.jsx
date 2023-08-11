@@ -1,17 +1,45 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { useImmer } from "use-immer";
 import defaultCategories from "./utils/defaultCategories";
 import CategoryCard from "./CategoryCard/CategoryCard";
+
+const initialCategories = defaultCategories.map((category) => ({
+  name: category.name,
+  selectedMark: null,
+  selectedDescription: null,
+}));
 
 export default function EvaluationForm() {
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
+  const [selectedEvaluations, updateSelectedEvaluations] =
+    useImmer(initialCategories);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     setName("");
     setGender("");
+    updateSelectedEvaluations(initialCategories);
+  };
+
+  const handleRatingChange = (rating, categoryToUpdate) => {
+    updateSelectedEvaluations((draft) => {
+      const category = draft.find(
+        (category) => category.name === categoryToUpdate
+      );
+      category.selectedMark = rating;
+    });
+  };
+
+  const handleEvaluationChange = (description, categoryToUpdate) => {
+    updateSelectedEvaluations((draft) => {
+      const category = draft.find(
+        (category) => category.name === categoryToUpdate
+      );
+      category.selectedDescription = description;
+    });
   };
 
   return (
@@ -48,6 +76,11 @@ export default function EvaluationForm() {
           category={category}
           name={name}
           gender={gender}
+          evaluationsOfSelectedCategory={selectedEvaluations.find(
+            (evaluation) => evaluation.name === category.name
+          )}
+          handleRatingClick={handleRatingChange}
+          handleEvaluationClick={handleEvaluationChange}
         />
       ))}
       <button type="submit">Submit</button>

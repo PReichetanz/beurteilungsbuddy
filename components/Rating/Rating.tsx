@@ -4,15 +4,17 @@ import RatingButton from "../RatingButton/RatingButton";
 
 type RatingProps = {
   selectedrating: number;
-  onRatingClick: (rate: number) => void;
+  onRatingClick: (rate: number, categoryName: string) => void;
+  categoryName: string;
 };
 
 export default function Rating({
   selectedrating,
   onRatingClick,
+  categoryName,
 }: RatingProps): JSX.Element {
   function handleClick(rating: number) {
-    onRatingClick(rating);
+    onRatingClick(rating, categoryName);
   }
 
   return (
