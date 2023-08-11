@@ -5,6 +5,7 @@ import { replaceName } from "../utils/helper";
 export default function CategoryCard({
   category,
   name,
+  gender,
   rating,
   onChangeRating,
   selectedDescription,
@@ -22,15 +23,15 @@ export default function CategoryCard({
                 key={`${description}-${key}`}
                 type="button"
                 onClick={() =>
-                  onChangeDescription(replaceName(description, name))
+                  onChangeDescription(replaceName(description, name, gender))
                 }
                 isActive={
-                  selectedDescription === replaceName(description, name)
+                  selectedDescription === replaceName(description, name, gender)
                     ? true
                     : false
                 }
               >
-                {replaceName(description, name)}
+                {replaceName(description, name, gender)}
               </EvaluationButton>
             ))
           : ""
