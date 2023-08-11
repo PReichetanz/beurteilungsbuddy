@@ -15,13 +15,18 @@ export default function EvaluationForm() {
   const [gender, setGender] = useState("");
   const [selectedEvaluations, updateSelectedEvaluations] =
     useImmer(initialCategories);
+  const [isSummaryChosen, setIsSummaryChosen] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setIsSummaryChosen(true);
+  };
 
+  const handleReset = () => {
     setName("");
     setGender("");
     updateSelectedEvaluations(initialCategories);
+    setIsSummaryChosen(false);
   };
 
   const handleRatingChange = (rating, categoryToUpdate) => {
@@ -43,48 +48,63 @@ export default function EvaluationForm() {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <GeneralInfoContainer>
-        <legend>Allgemeine Daten</legend>
-        <label htmlFor="name">Name:</label>
-        <input
-          id="name"
-          type="text"
-          onChange={(event) => setName(event.currentTarget.value)}
-          value={name}
-        />
-        <label htmlFor="male">männlich</label>
-        <input
-          id="male"
-          type="radio"
-          name="gender"
-          value="male"
-          onChange={(event) => setGender(event.target.value)}
-        />
-        <label htmlFor="female">weiblich</label>
-        <input
-          id="female"
-          type="radio"
-          name="gender"
-          value="female"
-          onChange={(event) => setGender(event.target.value)}
-        />
-      </GeneralInfoContainer>
-      {defaultCategories.map((category) => (
-        <CategoryCard
-          key={category.name}
-          category={category}
-          name={name}
-          gender={gender}
-          evaluationsOfSelectedCategory={selectedEvaluations.find(
-            (evaluation) => evaluation.name === category.name
-          )}
-          handleRatingClick={handleRatingChange}
-          handleEvaluationClick={handleEvaluationChange}
-        />
-      ))}
-      <SubmitButton type="submit">Zusammenfassen</SubmitButton>
-    </Form>
+    <>
+      <Form onSubmit={handleSubmit}>
+        <GeneralInfoContainer>
+          <legend>Allgemeine Daten</legend>
+          <label htmlFor="name">Name:</label>
+          <input
+            id="name"
+            type="text"
+            onChange={(event) => setName(event.currentTarget.value)}
+            value={name}
+          />
+          <label htmlFor="male">männlich</label>
+          <input
+            id="male"
+            type="radio"
+            name="gender"
+            value="male"
+            onChange={(event) => setGender(event.target.value)}
+          />
+          <label htmlFor="female">weiblich</label>
+          <input
+            id="female"
+            type="radio"
+            name="gender"
+            value="female"
+            onChange={(event) => setGender(event.target.value)}
+          />
+        </GeneralInfoContainer>
+        {defaultCategories.map((category) => (
+          <CategoryCard
+            key={category.name}
+            category={category}
+            name={name}
+            gender={gender}
+            evaluationsOfSelectedCategory={selectedEvaluations.find(
+              (evaluation) => evaluation.name === category.name
+            )}
+            handleRatingClick={handleRatingChange}
+            handleEvaluationClick={handleEvaluationChange}
+          />
+        ))}
+        <SubmitButton type="submit">Zusammenfassen</SubmitButton>
+      </Form>
+
+      {isSummaryChosen && (
+        <section>
+          <h2>Zusammenfassung</h2>
+          {selectedEvaluations.map((evaluation) => (
+            <p key={`${evaluation.name}`}>{evaluation.selectedDescription}</p>
+          ))}
+          <button type="button" onClick={handleReset}>
+            Zurücksetzen
+          </button>
+          <button type="button">Kopieren</button>
+        </section>
+      )}
+    </>
   );
 }
 
