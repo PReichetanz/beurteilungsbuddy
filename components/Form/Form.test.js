@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import Form from "./Form.jsx";
 import defaultCategories from "../utils/defaultCategories.js";
 
@@ -38,5 +39,27 @@ describe("Form component", () => {
 
   // Submitting the form and checking following steps
 
-  test.skip("cannot be submitted without a name and gender chosen", () => {});
+  test("submits only with name and gender chosen", async () => {
+    const mockedSubmit = jest.fn((event) => event.preventDefault());
+    const user = userEvent.setup();
+
+    render(<Form handleSubmit={mockedSubmit} />);
+    const submitButton = screen.getByRole("button", {
+      name: /Zusammenfassen/i,
+    });
+
+    await user.click(submitButton);
+
+    expect(mockedSubmit).not.toHaveBeenCalled();
+
+    const studentNameInput = screen.getByLabelText(/Name:/i);
+    const maleGenderInput = screen.getByLabelText(/männlich/i);
+
+    await user.type(studentNameInput, "Max");
+    await user.click(maleGenderInput);
+
+    await user.click(submitButton);
+
+    expect(mockedSubmit).toHaveBeenCalled();
+  });
 });
