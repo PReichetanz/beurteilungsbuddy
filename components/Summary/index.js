@@ -24,14 +24,15 @@ export default function Summary({ selectedEvaluations, onReset, studentName }) {
 
 const ButtonSection = styled.section`
   display: flex;
-  justify-content: space-around;
-  padding-inline: 1rem;
+  justify-content: space-evenly;
+  padding-inline: 0.5rem;
+  align-items: stretch;
 `;
 
 const ResetButton = styled(Button)`
-  max-width: 30%;
+  max-width: 40%;
 `;
 
 const SummaryContainer = styled.section`
-  max-width: 40vw;
+  max-width: 90vw;
 `;

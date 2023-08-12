@@ -40,6 +40,6 @@ export default function CopyButton({ copyText }: CopyButtonProps): JSX.Element {
 }
 
 const CopyToClipboardButton = styled(Button)`
-  max-width: 60%;
+  max-width: 50%;
   margin: 0;
 `;

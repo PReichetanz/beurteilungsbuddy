@@ -13,7 +13,7 @@ const initialCategories = defaultCategories.map((category) => ({
 }));
 
 export default function EvaluationForm() {
-  const [name, setName] = useState("");
+  const [studentName, setStudentName] = useState("");
   const [gender, setGender] = useState("");
   const [selectedEvaluations, updateSelectedEvaluations] =
     useImmer(initialCategories);
@@ -25,7 +25,7 @@ export default function EvaluationForm() {
   };
 
   const handleReset = () => {
-    setName("");
+    setStudentName("");
     setGender("");
     updateSelectedEvaluations(initialCategories);
     setIsSummaryChosen(false);
@@ -50,7 +50,7 @@ export default function EvaluationForm() {
   };
 
   return (
-    <>
+    <FormContainer>
       <Form onSubmit={handleSubmit}>
         <GeneralInfoContainer>
           <legend>Allgemeine Daten</legend>
@@ -58,8 +58,9 @@ export default function EvaluationForm() {
           <input
             id="name"
             type="text"
-            onChange={(event) => setName(event.currentTarget.value)}
-            value={name}
+            onChange={(event) => setStudentName(event.currentTarget.value)}
+            value={studentName}
+            required
           />
           <label htmlFor="male">männlich</label>
           <input
@@ -68,6 +69,7 @@ export default function EvaluationForm() {
             name="gender"
             value="male"
             onChange={(event) => setGender(event.target.value)}
+            required
           />
           <label htmlFor="female">weiblich</label>
           <input
@@ -76,13 +78,14 @@ export default function EvaluationForm() {
             name="gender"
             value="female"
             onChange={(event) => setGender(event.target.value)}
+            required
           />
         </GeneralInfoContainer>
         {defaultCategories.map((category) => (
           <CategoryCard
             key={category.name}
             category={category}
-            name={name}
+            name={studentName}
             gender={gender}
             evaluationsOfSelectedCategory={selectedEvaluations.find(
               (evaluation) => evaluation.name === category.name
@@ -98,9 +101,10 @@ export default function EvaluationForm() {
         <Summary
           selectedEvaluations={selectedEvaluations}
           onReset={handleReset}
+          studentName={studentName}
         />
       )}
-    </>
+    </FormContainer>
   );
 }
 
@@ -113,6 +117,20 @@ const Form = styled.form`
   flex-direction: column;
   gap: 0.5rem;
   padding: 0.5rem;
+  max-width: 500px;
+  flex: 1;
+`;
+
+const FormContainer = styled.article`
+  min-width: 375px;
+
+  @media (width >= 900px) {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    gap: 2rem;
+  }
 `;
 
 const GeneralInfoContainer = styled.fieldset`

@@ -22,14 +22,12 @@ export default createGlobalStyle`
     }
 
   body {
-    margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
         'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
         'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    max-width: 600px;
-    margin: 0 auto 1rem;
-    background: var(--color-background-light)
+    background: var(--color-background-light);
+    margin: 0;
   }
 `;
