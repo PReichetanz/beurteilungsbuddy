@@ -1,14 +1,17 @@
 import styled from "styled-components";
 import Form from "../components/Form/Form";
 
-export default function HomePage(): JSX.Element {
+export default function HomePage({
+  handleSubmit,
+  isSummaryChosen,
+}): JSX.Element {
   return (
     <PageContainer>
       <Header>
         <h1>Beurteilungsbuddy</h1>
       </Header>
       <Main>
-        <Form />
+        <Form handleSubmit={handleSubmit} isSummaryChosen={isSummaryChosen} />
       </Main>
       <footer></footer>
     </PageContainer>

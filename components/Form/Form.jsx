@@ -12,17 +12,11 @@ const initialCategories = defaultCategories.map((category) => ({
   selectedDescription: null,
 }));
 
-export default function EvaluationForm() {
+export default function EvaluationForm({ handleSubmit, isSummaryChosen }) {
   const [studentName, setStudentName] = useState("");
   const [gender, setGender] = useState("");
   const [selectedEvaluations, updateSelectedEvaluations] =
     useImmer(initialCategories);
-  const [isSummaryChosen, setIsSummaryChosen] = useState(false);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setIsSummaryChosen(true);
-  };
 
   const handleReset = () => {
     setStudentName("");
