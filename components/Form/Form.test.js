@@ -22,7 +22,7 @@ describe("Form component", () => {
   test("renders the correct number of categories", () => {
     render(<Form />);
 
-    const categoryCards = screen.getAllByTestId("category-card");
+    const categoryCards = screen.getAllByTestId(/category-card/i);
 
     expect(categoryCards).toHaveLength(defaultCategories.length);
   });

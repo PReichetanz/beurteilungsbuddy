@@ -1,48 +1,21 @@
-import { useState } from "react";
 import styled from "styled-components";
-import { useImmer } from "use-immer";
 import defaultCategories from "../utils/defaultCategories";
 import CategoryCard from "../CategoryCard/CategoryCard";
 import Button from "../Button/Button";
 import Summary from "../Summary";
 
-const initialCategories = defaultCategories.map((category) => ({
-  name: category.name,
-  selectedMark: null,
-  selectedDescription: null,
-}));
-
-export default function EvaluationForm({ handleSubmit, isSummaryChosen }) {
-  const [studentName, setStudentName] = useState("");
-  const [gender, setGender] = useState("");
-  const [selectedEvaluations, updateSelectedEvaluations] =
-    useImmer(initialCategories);
-
-  const handleReset = () => {
-    setStudentName("");
-    setGender("");
-    updateSelectedEvaluations(initialCategories);
-    setIsSummaryChosen(false);
-  };
-
-  const handleRatingChange = (rating, categoryToUpdate) => {
-    updateSelectedEvaluations((draft) => {
-      const category = draft.find(
-        (category) => category.name === categoryToUpdate
-      );
-      category.selectedMark = rating;
-    });
-  };
-
-  const handleEvaluationChange = (description, categoryToUpdate) => {
-    updateSelectedEvaluations((draft) => {
-      const category = draft.find(
-        (category) => category.name === categoryToUpdate
-      );
-      category.selectedDescription = description;
-    });
-  };
-
+export default function EvaluationForm({
+  studentName,
+  gender,
+  isSummaryChosen,
+  selectedEvaluations,
+  handleStudentNameChange,
+  handleGenderChange,
+  handleRatingChange,
+  handleEvaluationChange,
+  handleSubmit,
+  handleReset,
+}) {
   return (
     <FormContainer>
       <Form onSubmit={handleSubmit}>
@@ -52,7 +25,9 @@ export default function EvaluationForm({ handleSubmit, isSummaryChosen }) {
           <input
             id="name"
             type="text"
-            onChange={(event) => setStudentName(event.currentTarget.value)}
+            onChange={(event) =>
+              handleStudentNameChange(event.currentTarget.value)
+            }
             value={studentName}
             required
           />
@@ -62,7 +37,7 @@ export default function EvaluationForm({ handleSubmit, isSummaryChosen }) {
             type="radio"
             name="gender"
             value="male"
-            onChange={(event) => setGender(event.target.value)}
+            onChange={(event) => handleGenderChange(event.target.value)}
             required
           />
           <label htmlFor="female">weiblich</label>
@@ -71,7 +46,7 @@ export default function EvaluationForm({ handleSubmit, isSummaryChosen }) {
             type="radio"
             name="gender"
             value="female"
-            onChange={(event) => setGender(event.target.value)}
+            onChange={(event) => handleGenderChange(event.target.value)}
             required
           />
         </GeneralInfoContainer>

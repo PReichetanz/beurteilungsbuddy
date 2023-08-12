@@ -11,7 +11,7 @@ export default function CategoryCard({
   handleEvaluationClick,
 }) {
   return (
-    <fieldset data-testid="category-card">
+    <fieldset data-testid={`category-card ${category.name}`}>
       <Legend>{category.name}</Legend>
       <Rating
         selectedrating={evaluationsOfSelectedCategory.selectedMark}

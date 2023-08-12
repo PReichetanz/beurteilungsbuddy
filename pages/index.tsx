@@ -2,8 +2,16 @@ import styled from "styled-components";
 import Form from "../components/Form/Form";
 
 export default function HomePage({
-  handleSubmit,
+  studentName,
+  gender,
   isSummaryChosen,
+  selectedEvaluations,
+  handleStudentNameChange,
+  handleGenderChange,
+  handleRatingChange,
+  handleEvaluationChange,
+  handleSubmit,
+  handleReset,
 }): JSX.Element {
   return (
     <PageContainer>
@@ -11,7 +19,18 @@ export default function HomePage({
         <h1>Beurteilungsbuddy</h1>
       </Header>
       <Main>
-        <Form handleSubmit={handleSubmit} isSummaryChosen={isSummaryChosen} />
+        <Form
+          studentName={studentName}
+          gender={gender}
+          isSummaryChosen={isSummaryChosen}
+          selectedEvaluations={selectedEvaluations}
+          handleStudentNameChange={handleStudentNameChange}
+          handleGenderChange={handleGenderChange}
+          handleRatingChange={handleRatingChange}
+          handleEvaluationChange={handleEvaluationChange}
+          handleSubmit={handleSubmit}
+          handleReset={handleReset}
+        />
       </Main>
       <footer></footer>
     </PageContainer>
