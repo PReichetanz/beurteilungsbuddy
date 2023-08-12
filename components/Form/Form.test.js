@@ -3,11 +3,24 @@ import userEvent from "@testing-library/user-event";
 import Form from "./Form.jsx";
 import defaultCategories from "../utils/defaultCategories.js";
 
+const exampleSelectedEvaluations = [
+  {
+    name: "Arbeiten in der Gruppe",
+    selectedMark: 2,
+    selectedDescription: "Max arbeitete produktiv in einer Gruppe mit.",
+  },
+  {
+    name: "Arbeitsweise",
+    selectedMark: 1,
+    selectedDescription: "Neue Aufträge ging Max rasch und zielstrebig an.",
+  },
+];
+
 describe("Form component", () => {
   // Display the correct things at the beginning
 
   test("renders all elements of the general information fieldset", () => {
-    render(<Form />);
+    render(<Form selectedEvaluations={exampleSelectedEvaluations} />);
     const generalInformationLegend = screen.getByText(/Allgemeine Daten/i);
     const studentNameInput = screen.getByLabelText(/Name:/i);
     const maleGenderInput = screen.getByLabelText(/männlich/i);
@@ -20,7 +33,7 @@ describe("Form component", () => {
   });
 
   test("renders the correct number of categories", () => {
-    render(<Form />);
+    render(<Form selectedEvaluations={exampleSelectedEvaluations} />);
 
     const categoryCards = screen.getAllByTestId(/category-card/i);
 
@@ -28,7 +41,7 @@ describe("Form component", () => {
   });
 
   test("renders the 'Zusammenfassen' button", () => {
-    render(<Form />);
+    render(<Form selectedEvaluations={exampleSelectedEvaluations} />);
 
     const submitButton = screen.getByRole("button", {
       name: /Zusammenfassen/i,
@@ -43,7 +56,12 @@ describe("Form component", () => {
     const mockedSubmit = jest.fn((event) => event.preventDefault());
     const user = userEvent.setup();
 
-    render(<Form handleSubmit={mockedSubmit} />);
+    render(
+      <Form
+        selectedEvaluations={exampleSelectedEvaluations}
+        handleSubmit={mockedSubmit}
+      />
+    );
     const submitButton = screen.getByRole("button", {
       name: /Zusammenfassen/i,
     });
