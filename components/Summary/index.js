@@ -3,9 +3,9 @@ import { getTextToCopy } from "../utils/helper";
 import Button from "../Button/Button";
 import CopyButton from "../CopyButton/CopyButton";
 
-export default function Summary({ selectedEvaluations, onReset }) {
+export default function Summary({ selectedEvaluations, onReset, studentName }) {
   return (
-    <section>
+    <SummaryContainer>
       <h2>Zusammenfassung</h2>
       {selectedEvaluations.map((evaluation) => (
         <p key={`${evaluation.name}`}>{evaluation.selectedDescription}</p>
@@ -14,9 +14,11 @@ export default function Summary({ selectedEvaluations, onReset }) {
         <ResetButton type="button" onClick={onReset}>
           Zurücksetzen
         </ResetButton>
-        <CopyButton copyText={getTextToCopy(name, selectedEvaluations)} />
+        <CopyButton
+          copyText={getTextToCopy(studentName, selectedEvaluations)}
+        />
       </ButtonSection>
-    </section>
+    </SummaryContainer>
   );
 }
 
@@ -28,4 +30,8 @@ const ButtonSection = styled.section`
 
 const ResetButton = styled(Button)`
   max-width: 30%;
+`;
+
+const SummaryContainer = styled.section`
+  max-width: 40vw;
 `;

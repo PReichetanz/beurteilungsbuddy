@@ -13,20 +13,20 @@ export function replaceName(description, name, gender) {
   }
 }
 
-export function getTextToCopy(name, selectedEvaluations) {
+export function getTextToCopy(studentName, selectedEvaluations) {
   let textToCopy = "";
 
   const filteredSelectedEvaluations = selectedEvaluations.filter(
     (evaluation) => evaluation.selectedDescription !== null
   );
 
-  if (name && filteredSelectedEvaluations.length > 0) {
+  if (studentName && filteredSelectedEvaluations.length > 0) {
     const descriptions = filteredSelectedEvaluations.map(
       (evaluation) => evaluation.selectedDescription
     );
     const allEvaluations = descriptions.join("\n");
 
-    textToCopy = `Beurteilung von ${name}\n
+    textToCopy = `Beurteilung von ${studentName}\n
     ${allEvaluations}`;
     return textToCopy;
   } else {
