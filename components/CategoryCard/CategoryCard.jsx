@@ -10,6 +10,9 @@ export default function CategoryCard({
   handleRatingClick,
   handleEvaluationClick,
 }) {
+  if (!evaluationsOfSelectedCategory) {
+    return; // Handle the case when evaluationsOfSelectedCategory is not available
+  }
   return (
     <fieldset data-testid={`category-card ${category.name}`}>
       <Legend>{category.name}</Legend>

@@ -1,77 +1,84 @@
+import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import Form from "./Form.jsx";
-import defaultCategories from "../utils/defaultCategories.js";
+import Form from "./Form";
 
-const exampleSelectedEvaluations = [
-  {
-    name: "Arbeiten in der Gruppe",
-    selectedMark: 2,
-    selectedDescription: "Max arbeitete produktiv in einer Gruppe mit.",
-  },
+const mockHandleStudentNameChange = jest.fn();
+const mockHandleGenderChange = jest.fn();
+const mockHandleRatingChange = jest.fn();
+const mockHandleEvaluationChange = jest.fn();
+const mockHandleSubmit = jest.fn((event) => event.preventDefault());
+const mockHandleReset = jest.fn();
+
+const mockStudentName = "John Doe";
+const mockGender = "male";
+const mockIsSummaryChosen = true;
+
+const mockSelectedEvaluations = [
   {
     name: "Arbeitsweise",
-    selectedMark: 1,
-    selectedDescription: "Neue Aufträge ging Max rasch und zielstrebig an.",
+    selectedMark: 5,
+    selectedDescription: "Description 1",
   },
+  // ... other mock evaluations
 ];
 
-describe("Form component", () => {
-  // Display the correct things at the beginning
-  // Current problem: exampleSelectedEvaluations.find() does not work
-  // properly when given to the CategoryCard and then to the
-  // Rating component
-
-  test.skip("renders all elements of the general information fieldset", () => {
-    render(<Form selectedEvaluations={exampleSelectedEvaluations} />);
-    const generalInformationLegend = screen.getByText(/Allgemeine Daten/i);
-    const studentNameInput = screen.getByLabelText(/Name:/i);
-    const maleGenderInput = screen.getByLabelText(/männlich/i);
-    const femaleGenderInput = screen.getByLabelText(/weiblich/i);
-
-    expect(generalInformationLegend).toBeInTheDocument();
-    expect(studentNameInput).toBeInTheDocument();
-    expect(maleGenderInput).toBeInTheDocument();
-    expect(femaleGenderInput).toBeInTheDocument();
-  });
-
-  test.skip("renders the correct number of categories", () => {
-    render(<Form selectedEvaluations={exampleSelectedEvaluations} />);
-
-    const categoryCards = screen.getAllByTestId(/category-card/i);
-
-    expect(categoryCards).toHaveLength(defaultCategories.length);
-  });
-
-  test.skip("renders the 'Zusammenfassen' button", () => {
-    render(<Form selectedEvaluations={exampleSelectedEvaluations} />);
-
-    const submitButton = screen.getByRole("button", {
-      name: /Zusammenfassen/i,
-    });
-
-    expect(submitButton).toBeInTheDocument();
-  });
-
-  // Submitting the form and checking following steps
-
-  test.skip("submits only with name and gender chosen", async () => {
-    const mockedSubmit = jest.fn((event) => event.preventDefault());
-    const user = userEvent.setup();
-
+describe("Form Component", () => {
+  test("displays the form with general information and category cards", () => {
     render(
       <Form
-        selectedEvaluations={exampleSelectedEvaluations}
-        handleSubmit={mockedSubmit}
+        studentName={mockStudentName}
+        gender={mockGender}
+        isSummaryChosen={mockIsSummaryChosen}
+        selectedEvaluations={mockSelectedEvaluations}
+        handleStudentNameChange={mockHandleStudentNameChange}
+        handleGenderChange={mockHandleGenderChange}
+        handleRatingChange={mockHandleRatingChange}
+        handleEvaluationChange={mockHandleEvaluationChange}
+        handleSubmit={mockHandleSubmit}
+        handleReset={mockHandleReset}
       />
     );
+
+    const nameInput = screen.getByLabelText("Name:");
+    expect(nameInput).toBeInTheDocument();
+    expect(nameInput).toHaveValue(mockStudentName);
+
+    const maleRadioButton = screen.getByLabelText("männlich");
+    expect(maleRadioButton).toBeInTheDocument();
+    expect(maleRadioButton).toHaveAttribute("value", "male");
+
+    const femaleRadioButton = screen.getByLabelText("weiblich");
+    expect(femaleRadioButton).toBeInTheDocument();
+    expect(femaleRadioButton).toHaveAttribute("value", "female");
+
+    const categoryCards = screen.getAllByTestId(/category-card/i);
+    expect(categoryCards).toHaveLength(mockSelectedEvaluations.length);
+  });
+
+  test("calls handleSubmit only with name and gender chosen", async () => {
+    const user = userEvent.setup();
+    render(
+      <Form
+        studentName={mockStudentName}
+        gender={mockGender}
+        isSummaryChosen={mockIsSummaryChosen}
+        selectedEvaluations={mockSelectedEvaluations}
+        handleStudentNameChange={mockHandleStudentNameChange}
+        handleGenderChange={mockHandleGenderChange}
+        handleRatingChange={mockHandleRatingChange}
+        handleEvaluationChange={mockHandleEvaluationChange}
+        handleSubmit={mockHandleSubmit}
+        handleReset={mockHandleReset}
+      />
+    );
+
     const submitButton = screen.getByRole("button", {
       name: /Zusammenfassen/i,
     });
-
     await user.click(submitButton);
 
-    expect(mockedSubmit).not.toHaveBeenCalled();
+    expect(mockHandleSubmit).not.toHaveBeenCalled();
 
     const studentNameInput = screen.getByLabelText(/Name:/i);
     const maleGenderInput = screen.getByLabelText(/männlich/i);
@@ -81,6 +88,10 @@ describe("Form component", () => {
 
     await user.click(submitButton);
 
-    expect(mockedSubmit).toHaveBeenCalled();
+    expect(mockHandleSubmit).toHaveBeenCalled();
   });
+
+  test.todo(
+    "calls handleSubmit only when at least one description is selected"
+  );
 });

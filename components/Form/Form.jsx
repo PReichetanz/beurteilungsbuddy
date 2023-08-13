@@ -18,7 +18,7 @@ export default function EvaluationForm({
 }) {
   return (
     <FormContainer>
-      <Form onSubmit={handleSubmit}>
+      <Form aria-label="Daten für Beurteilung eingeben" onSubmit={handleSubmit}>
         <GeneralInfoContainer>
           <legend>Allgemeine Daten</legend>
           <label htmlFor="name">Name:</label>
