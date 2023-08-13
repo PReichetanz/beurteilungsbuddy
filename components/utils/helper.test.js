@@ -1,4 +1,5 @@
 import { replaceName } from "./helper";
+import { getTextToCopy } from "./helper";
 
 describe("replaceName function", () => {
   test('should replace "X" with the provided name in all instances', () => {
@@ -57,5 +58,64 @@ describe("replaceName function", () => {
     expect(result).toEqual(
       "Dana arbeitet immer gut mit. Sie vertraut dabei auf ihre Stärken."
     );
+  });
+});
+
+describe("getTextToCopy function", () => {
+  test("should return empty string when studentName and selectedEvaluations are empty", () => {
+    const studentName = "";
+    const selectedEvaluations = [];
+
+    const result = getTextToCopy(studentName, selectedEvaluations);
+
+    expect(result).toEqual("");
+  });
+
+  test("should return empty string when studentName is empty and selectedEvaluations has no selectedDescription", () => {
+    const studentName = "";
+    const selectedEvaluations = [
+      { selectedDescription: null },
+      { selectedDescription: null },
+    ];
+
+    const result = getTextToCopy(studentName, selectedEvaluations);
+
+    expect(result).toEqual("");
+  });
+
+  test("should return formatted text when studentName and selectedEvaluations are valid", () => {
+    const studentName = "Alice";
+    const selectedEvaluations = [
+      { selectedDescription: "Good performance" },
+      { selectedDescription: "Great improvement" },
+    ];
+
+    const result = getTextToCopy(studentName, selectedEvaluations);
+
+    const expectedText = `Beurteilung von Alice
+
+    Good performance
+Great improvement`;
+
+    expect(result).toEqual(expectedText);
+  });
+
+  test("should exclude evaluations with null selectedDescription from the final text", () => {
+    const studentName = "Bob";
+    const selectedEvaluations = [
+      { selectedDescription: "Excellent work" },
+      { selectedDescription: null },
+      { selectedDescription: "Needs improvement" },
+      { selectedDescription: null },
+    ];
+
+    const result = getTextToCopy(studentName, selectedEvaluations);
+
+    const expectedText = `Beurteilung von Bob
+
+    Excellent work
+Needs improvement`;
+
+    expect(result).toEqual(expectedText);
   });
 });
