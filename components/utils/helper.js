@@ -1,15 +1,27 @@
 export function replaceName(description, name, gender) {
-  let replacedDescription = description.replace("X", name);
+  let replacedDescription = description.replace(/\bX\b/g, name);
+
   if (gender === "male") {
     return replacedDescription;
   } else {
     const femaleReplacedDescription = replacedDescription
-      .replaceAll(/\ber\b/g, "sie")
-      .replaceAll(/\bseiner\b/g, "ihrer")
-      .replaceAll(/\bihm\b/g, "ihr")
-      .replaceAll(/\bihn\b/g, "sie")
-      .replaceAll(/\bseinen\b/g, "ihren");
-    return femaleReplacedDescription;
+      .replace(/\ber\b/g, "sie")
+      .replace(/\bseiner\b/g, "ihrer")
+      .replace(/\bihm\b/g, "ihr")
+      .replace(/\bihn\b/g, "sie")
+      .replace(/\bseine\b/g, "ihre")
+      .replace(/\bseinen\b/g, "ihren");
+
+    // Additional replacements for sentence structure
+    const sentenceReplacements = femaleReplacedDescription
+      .replace(/\bEr\b/g, "Sie")
+      .replace(/\bSein\b/g, "Ihr")
+      .replace(/\bIhm\b/g, "Ihr")
+      .replace(/\bIhn\b/g, "Sie")
+      .replace(/\bSeine\b/g, "Ihre")
+      .replace(/\bSeinen\b/g, "Ihren");
+
+    return sentenceReplacements;
   }
 }
 

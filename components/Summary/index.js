@@ -11,7 +11,7 @@ export default function Summary({ selectedEvaluations, onReset, studentName }) {
         <p key={`${evaluation.name}`}>{evaluation.selectedDescription}</p>
       ))}
       <ButtonSection>
-        <ResetButton type="button" onClick={onReset}>
+        <ResetButton type="button" onClick={onReset} data-testid="reset-button">
           Zurücksetzen
         </ResetButton>
         <CopyButton
