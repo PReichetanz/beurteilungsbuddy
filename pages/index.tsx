@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Form from "../components/Form/Form";
+import Footer from "../components/Footer";
 
 export default function HomePage({
   studentName,
@@ -32,7 +33,7 @@ export default function HomePage({
           handleReset={handleReset}
         />
       </Main>
-      <footer></footer>
+      <Footer />
     </PageContainer>
   );
 }
@@ -48,7 +49,6 @@ const Header = styled.header`
 const Main = styled.main`
   grid-row: 2 / 3;
   height: auto;
-  overflow-y: auto;
 `;
 
 const PageContainer = styled.div`
@@ -56,4 +56,5 @@ const PageContainer = styled.div`
   display: grid;
   grid-template-rows: auto 1fr auto;
   justify-items: center;
+  overflow-y: auto;
 `;
