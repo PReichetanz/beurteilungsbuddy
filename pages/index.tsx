@@ -53,7 +53,6 @@ const Main = styled.main`
 
 const PageContainer = styled.div`
   height: 100vh;
-  max-width: 1100px;
   display: grid;
   grid-template-rows: auto 1fr auto;
   justify-items: center;
