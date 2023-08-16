@@ -6,14 +6,15 @@ export default function Footer() {
   return (
     <StyledFooter>
       <StyledNavigation>
-        <ul role="list">
+        <NavigationHeading>Navigation</NavigationHeading>
+        <NavigationList role="list">
           <li>
             <StyledLink href="/">Beurteilungsbuddy</StyledLink>
           </li>
           <li>
             <StyledLink href="/impressum">Impressum</StyledLink>
           </li>
-        </ul>
+        </NavigationList>
       </StyledNavigation>
       <StyledLink href="https://github.com/PReichetanz/beurteilungsbuddy">
         <LogoContainer>
@@ -43,16 +44,23 @@ const LogoContainer = styled.div`
   gap: 0.5rem;
 `;
 
+const NavigationHeading = styled.h2`
+  margin: 0;
+`;
+
+const NavigationList = styled.ul`
+  padding: 0.5rem;
+`;
+
 const StyledFooter = styled.footer`
   background-color: var(--color-background-dark);
   color: var(--color-text-white);
   width: 100%;
-  height: 100px;
   display: grid;
   grid-template-areas:
     "nav social"
     "copy copy";
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr auto;
   grid-template-columns: 1fr 1fr;
   justify-items: center;
   align-items: center;
@@ -62,8 +70,12 @@ const StyledFooter = styled.footer`
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: var(--color-text-white);
+  &:hover {
+    font-weight: bold;
+  }
 `;
 
 const StyledNavigation = styled.nav`
   grid-area: nav;
+  justify-self: start;
 `;
