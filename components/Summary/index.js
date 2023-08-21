@@ -38,10 +38,16 @@ const ResetButton = styled(Button)`
 `;
 
 const SummaryContainer = styled.section`
-  max-width: 90%;
+  max-width: 70%;
   margin-bottom: 1rem;
+  padding-inline: 1rem;
+  align-self: start;
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
+
+  @media screen and (min-width: 900px) {
+    max-width: 90%;
+  }
 `;
