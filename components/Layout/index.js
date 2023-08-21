@@ -18,12 +18,12 @@ const Header = styled.header`
   background-color: var(--color-background-dark);
   color: var(--color-text-white);
   width: 100%;
-  margin-bottom: 0.2rem;
 `;
 
 const Main = styled.main`
   grid-row: 2 / 3;
   height: auto;
+  padding-block: 0.5rem;
 `;
 
 const PageContainer = styled.div`

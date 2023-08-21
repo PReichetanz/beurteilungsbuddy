@@ -92,13 +92,13 @@ const Form = styled.form`
 
 const FormContainer = styled.article`
   min-width: 375px;
+  height: 100%;
+  display: grid;
+  justify-items: center;
 
-  @media (width >= 900px) {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: flex-start;
-    gap: 2rem;
+  @media screen and (width >= 900px) {
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
   }
 `;
 
