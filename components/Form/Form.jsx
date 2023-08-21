@@ -96,7 +96,7 @@ const FormContainer = styled.article`
   display: grid;
   justify-items: center;
 
-  @media screen and (width >= 900px) {
+  @media screen and (min-width: 900px) {
     grid-template-columns: 1fr 1fr;
     justify-items: center;
   }
