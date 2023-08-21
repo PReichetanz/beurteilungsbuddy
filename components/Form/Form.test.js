@@ -44,11 +44,11 @@ describe("Form Component", () => {
     expect(nameInput).toBeInTheDocument();
     expect(nameInput).toHaveValue(mockStudentName);
 
-    const maleRadioButton = screen.getByLabelText("männlich");
+    const maleRadioButton = screen.getByLabelText(/männlich/i);
     expect(maleRadioButton).toBeInTheDocument();
     expect(maleRadioButton).toHaveAttribute("value", "male");
 
-    const femaleRadioButton = screen.getByLabelText("weiblich");
+    const femaleRadioButton = screen.getByLabelText(/weiblich/i);
     expect(femaleRadioButton).toBeInTheDocument();
     expect(femaleRadioButton).toHaveAttribute("value", "female");
 

@@ -4,10 +4,13 @@ import Button from "../Button/Button";
 import CopyButton from "../CopyButton/CopyButton";
 
 export default function Summary({ selectedEvaluations, onReset, studentName }) {
+  const evalutionsWithSelectedDescriptions = selectedEvaluations.filter(
+    (evaluation) => evaluation.selectedDescription !== null
+  );
   return (
     <SummaryContainer>
       <h2>Zusammenfassung</h2>
-      {selectedEvaluations.map((evaluation) => (
+      {evalutionsWithSelectedDescriptions.map((evaluation) => (
         <p key={`${evaluation.name}`}>{evaluation.selectedDescription}</p>
       ))}
       <ButtonSection>
@@ -27,6 +30,7 @@ const ButtonSection = styled.section`
   justify-content: space-evenly;
   padding-inline: 0.5rem;
   align-items: stretch;
+  align-self: auto;
 `;
 
 const ResetButton = styled(Button)`
@@ -34,5 +38,16 @@ const ResetButton = styled(Button)`
 `;
 
 const SummaryContainer = styled.section`
-  max-width: 90vw;
+  max-width: 70%;
+  margin-bottom: 1rem;
+  padding-inline: 1rem;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+
+  @media screen and (min-width: 900px) {
+    max-width: 90%;
+  }
 `;
