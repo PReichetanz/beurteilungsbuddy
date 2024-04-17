@@ -6,6 +6,7 @@ import Summary from "../Summary";
 
 interface Evaluation {
   name: string;
+  selectedMark: number;
   selectedDescription: string | null;
 }
 
@@ -17,7 +18,7 @@ interface EvaluationFormProps {
   handleStudentNameChange: (newStudentName: string) => void;
   handleGenderChange: (newGener: string) => void;
   handleRatingChange: (newRating: number) => void;
-  handleEvaluationChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleEvaluationChange: (description: string, categoryName: string) => void;
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   handleReset: () => void;
 }
