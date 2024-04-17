@@ -24,6 +24,7 @@ const Main = styled.main`
   grid-row: 2 / 3;
   height: auto;
   padding-block: 0.5rem;
+  width: 100%;
 `;
 
 const PageContainer = styled.div`

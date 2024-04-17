@@ -2,6 +2,28 @@ import styled from "styled-components";
 import Rating from "../Rating/Rating";
 import { replaceName } from "../utils/helper";
 
+interface Category {
+  name: string;
+  valuations: Array<{
+    mark: number;
+    descriptions: string[];
+  }>;
+}
+
+interface CategoryEvaluation {
+  selectedMark: number;
+  selectedDescription: string | null;
+}
+
+interface CategoryCardProps {
+  category: Category;
+  name: string;
+  gender: string;
+  evaluationsOfSelectedCategory: CategoryEvaluation;
+  handleRatingClick: (rate: number, categoryName: string) => void;
+  handleEvaluationClick: (description: string, categoryName: string) => void;
+}
+
 export default function CategoryCard({
   category,
   name,
@@ -9,7 +31,7 @@ export default function CategoryCard({
   evaluationsOfSelectedCategory,
   handleRatingClick,
   handleEvaluationClick,
-}) {
+}: CategoryCardProps) {
   if (!evaluationsOfSelectedCategory) {
     return; // Handle the case when evaluationsOfSelectedCategory is not available
   }
@@ -34,7 +56,7 @@ export default function CategoryCard({
                       category.name
                     )
                   }
-                  isactive={
+                  $isactive={
                     evaluationsOfSelectedCategory.selectedDescription ===
                     replaceName(description, name, gender)
                       ? "true"
@@ -51,11 +73,11 @@ export default function CategoryCard({
   );
 }
 
-const EvaluationButton = styled.button`
+const EvaluationButton = styled.button<{ $isactive: string }>`
   background: inherit;
   color: inherit;
   border: none;
-  font-weight: ${(props) => (props.isactive === "true" ? "800" : "400")};
+  font-weight: ${(props) => (props.$isactive === "true" ? "800" : "400")};
   &:hover {
     font-weight: 800;
   }

@@ -1,22 +1,29 @@
 import GlobalStyle from "../styles";
 import { useState } from "react";
 import { useImmer } from "use-immer";
+import { AppProps } from "next/app";
 import defaultCategories from "../components/utils/defaultCategories";
 
-const initialCategories = defaultCategories.map((category) => ({
+interface Category {
+  name: string;
+  selectedMark: number | null;
+  selectedDescription: string | null;
+}
+
+const initialCategories: Category[] = defaultCategories.map((category) => ({
   name: category.name,
   selectedMark: null,
   selectedDescription: null,
 }));
 
 export default function App({ Component, pageProps }) {
-  const [studentName, setStudentName] = useState("");
-  const [gender, setGender] = useState("");
+  const [studentName, setStudentName] = useState<string>("");
+  const [gender, setGender] = useState<string>("");
   const [selectedEvaluations, updateSelectedEvaluations] =
-    useImmer(initialCategories);
-  const [isSummaryChosen, setIsSummaryChosen] = useState(false);
+    useImmer<Category[]>(initialCategories);
+  const [isSummaryChosen, setIsSummaryChosen] = useState<boolean>(false);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsSummaryChosen(true);
   };
@@ -28,15 +35,15 @@ export default function App({ Component, pageProps }) {
     setIsSummaryChosen(false);
   };
 
-  const handleStudentNameChange = (newName) => {
+  const handleStudentNameChange = (newName: string) => {
     setStudentName(newName);
   };
 
-  const handleGenderChange = (newGender) => {
+  const handleGenderChange = (newGender: string) => {
     setGender(newGender);
   };
 
-  const handleRatingChange = (rating, categoryToUpdate) => {
+  const handleRatingChange = (rating: number, categoryToUpdate: string) => {
     updateSelectedEvaluations((draft) => {
       const category = draft.find(
         (category) => category.name === categoryToUpdate
@@ -45,7 +52,10 @@ export default function App({ Component, pageProps }) {
     });
   };
 
-  const handleEvaluationChange = (description, categoryToUpdate) => {
+  const handleEvaluationChange = (
+    description: string,
+    categoryToUpdate: string
+  ) => {
     updateSelectedEvaluations((draft) => {
       const category = draft.find(
         (category) => category.name === categoryToUpdate

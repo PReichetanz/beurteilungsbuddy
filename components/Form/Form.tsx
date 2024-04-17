@@ -4,6 +4,25 @@ import CategoryCard from "../CategoryCard/CategoryCard";
 import Button from "../Button/Button";
 import Summary from "../Summary";
 
+interface Evaluation {
+  name: string;
+  selectedMark: number;
+  selectedDescription: string | null;
+}
+
+interface EvaluationFormProps {
+  studentName: string;
+  gender: string;
+  isSummaryChosen: boolean;
+  selectedEvaluations: Evaluation[];
+  handleStudentNameChange: (newStudentName: string) => void;
+  handleGenderChange: (newGener: string) => void;
+  handleRatingChange: (newRating: number) => void;
+  handleEvaluationChange: (description: string, categoryName: string) => void;
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  handleReset: () => void;
+}
+
 export default function EvaluationForm({
   studentName,
   gender,
@@ -15,7 +34,7 @@ export default function EvaluationForm({
   handleEvaluationChange,
   handleSubmit,
   handleReset,
-}) {
+}: EvaluationFormProps) {
   return (
     <FormContainer>
       <Form aria-label="Daten für Beurteilung eingeben" onSubmit={handleSubmit}>
@@ -97,6 +116,10 @@ const Form = styled.form`
   min-width: 375px;
   max-width: 500px;
   flex: 1;
+
+  @media screen and (min-width: 900px) {
+    width: 50%;
+  }
 `;
 
 const FormContainer = styled.article`

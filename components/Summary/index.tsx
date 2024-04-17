@@ -3,7 +3,22 @@ import { getTextToCopy } from "../utils/helper";
 import Button from "../Button/Button";
 import CopyButton from "../CopyButton/CopyButton";
 
-export default function Summary({ selectedEvaluations, onReset, studentName }) {
+interface Evaluation {
+  name: string;
+  selectedDescription: string | null;
+}
+
+interface SummaryProps {
+  selectedEvaluations: Evaluation[];
+  onReset: () => void;
+  studentName: string;
+}
+
+export default function Summary({
+  selectedEvaluations,
+  onReset,
+  studentName,
+}: SummaryProps) {
   const evalutionsWithSelectedDescriptions = selectedEvaluations.filter(
     (evaluation) => evaluation.selectedDescription !== null
   );
